@@ -12,13 +12,13 @@ whose children list a series of steps to run.
 ```
 process_package/
 ├── toy_process/process.py     # the Process parent class
-├── examples/breakfast.py      # MakeBreakfast nests a MakeToast sub-process
-├── tests/test_process.py
-└── .opencode/skills/          # agent skills (opencode / Claude Code compatible)
-    ├── create-process/SKILL.md
-    ├── add-process-step/SKILL.md
-    └── run-process/SKILL.md
+├── examples/
+│   ├── breakfast.py           # MakeBreakfast nests a MakeToast sub-process
+│   └── word_report.py         # WordReport nests a CleanText sub-process
+└── tests/
 ```
+
+The agent skills live at the repository root in `.opencode/skills/`.
 
 ## Try it
 
@@ -40,6 +40,16 @@ a cup of tea and buttered 3 slices of toast
 
 ## Agent skills
 
-The `.opencode/skills/` folder holds `SKILL.md` files that an agent such as
-opencode discovers when started in `process_package/`. They teach it how to
-create a process, add steps or sub-processes, and run and test the result.
+The main goal of this folder is to let a coding agent such as opencode build
+new processes. It finds the `SKILL.md` files in `.opencode/skills/` at the
+repository root when started anywhere inside this repository:
+
+| Skill | Use it to |
+| --- | --- |
+| `design-process` | turn a plain-language goal into ordered steps and sub-processes |
+| `create-process` | write the Process classes and a test from that plan |
+| `add-process-step` | add, reorder or nest steps in an existing process |
+| `run-process` | run, test and debug a process from its trace |
+
+Example prompt: *"Create a process that reads a list of numbers, removes
+outliers in a sub-process, and reports the mean."*
